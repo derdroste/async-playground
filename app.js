@@ -7,12 +7,25 @@ console.log('Before');
     });
 }); */
 
-getUser(1)
+/* getUser(1)
     .then(user => getRepositories(user.gitHubUsername)
         .then(repos => getCommits(repos[0]))
         .then(commit => console.log(commit)))
-    .catch(err => console.log(err.message));
+    .catch(err => console.log(err.message)); */
 
+// Async Await approach
+async function displayCommits() {
+    try {
+        const user = await getUser(1);
+        const repos = await getRepositories(user.gitHubUsername);
+        const commits = await getCommits(repos[0]);
+        console.log(commits);
+    } catch(err) {
+        console.log(err.message);
+    }
+
+}
+displayCommits();
 
 function getRepositories(user) {
     return new Promise((resolve, reject) => {
